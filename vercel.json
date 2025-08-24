@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/dillon-gas-account-deletion.html" }
+  ]
+}
