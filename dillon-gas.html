@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Deletion - Dillon Gas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-blue: #1e3a8a;
+        --secondary-blue: #3b82f6;
+        --accent-red: #dc2626;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --background-light: #f8fafc;
+        --border-light: #e2e8f0;
+        --white: #ffffff;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -2px rgb(0 0 0 / 0.05);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 10px 10px -5px rgb(0 0 0 / 0.04);
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        background: var(--white);
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .header-content {
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .logo {
+        height: 60px;
+        width: auto;
+      }
+
+      .company-info h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary-blue);
+        margin-bottom: 0.25rem;
+      }
+
+      .company-info p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .main-content {
+        flex: 1;
+        background: var(--white);
+        margin: 2rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+      }
+
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-blue),
+          var(--secondary-blue)
+        );
+        color: var(--white);
+        padding: 3rem 2.5rem;
+        text-align: center;
+      }
+
+      .page-header h2 {
+        font-size: 2.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .content {
+        padding: 3rem 2.5rem;
+      }
+
+      .method {
+        background: var(--background-light);
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        transition: all 0.2s ease;
+      }
+
+      .method:hover {
+        box-shadow: var(--shadow-lg);
+        border-color: var(--secondary-blue);
+      }
+
+      .method-number {
+        position: absolute;
+        top: -12px;
+        left: 2rem;
+        background: var(--secondary-blue);
+        color: var(--white);
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      .method h3 {
+        color: var(--primary-blue);
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .method-description {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .steps-list {
+        background: var(--white);
+        border-radius: 6px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .steps-list ol {
+        padding-left: 1.5rem;
+        color: var(--text-primary);
+      }
+
+      .steps-list li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+
+      .app-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-blue),
+          var(--secondary-blue)
+        );
+        color: var(--white);
+        padding: 0.875rem 1.75rem;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        border: none;
+        cursor: pointer;
+      }
+
+      .app-button:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .email-info {
+        background: var(--white);
+        border-radius: 6px;
+        padding: 1.5rem;
+        border-left: 4px solid var(--secondary-blue);
+      }
+
+      .email-info strong {
+        color: var(--primary-blue);
+      }
+
+      .email-info p {
+        margin-bottom: 0.5rem;
+      }
+
+      .warning-section {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 8px;
+        padding: 2rem;
+        margin: 2.5rem 0;
+      }
+
+      .warning-section h4 {
+        color: #92400e;
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .warning-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .warning-list li {
+        color: #92400e;
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+        line-height: 1.6;
+      }
+
+      .warning-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+      }
+
+      .contact-section {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 2rem;
+        margin-top: 2.5rem;
+      }
+
+      .contact-section h4 {
+        color: var(--primary-blue);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .contact-section p {
+        color: var(--text-secondary);
+        margin-bottom: 0.75rem;
+      }
+
+      .contact-email {
+        color: var(--secondary-blue);
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .contact-email:hover {
+        text-decoration: underline;
+      }
+
+      .footer {
+        background: var(--background-light);
+        border-top: 1px solid var(--border-light);
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      .footer a {
+        color: var(--secondary-blue);
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--border-light);
+        margin: 2rem 0;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 0;
+        }
+
+        .main-content {
+          margin: 1rem;
+          border-radius: 8px;
+        }
+
+        .header-content {
+          padding: 1.5rem;
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .logo {
+          height: 50px;
+        }
+
+        .page-header {
+          padding: 2rem 1.5rem;
+        }
+
+        .page-header h2 {
+          font-size: 1.875rem;
+        }
+
+        .content {
+          padding: 2rem 1.5rem;
+        }
+
+        .method {
+          padding: 1.5rem;
+        }
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <img
+            src="https://dillongas.com/wp-content/uploads/2022/07/The-Corrected-Logo-1320x931.png"
+            alt="Dillon Gas Logo"
+            class="logo"
+          />
+          <div class="company-info">
+            <h1>Dillon Gas</h1>
+            <p>Premium Gas Delivery Services</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="page-header">
+          <h2>Account Deletion</h2>
+          <p>
+            We understand that circumstances change. Follow the instructions
+            below to permanently delete your Dillon Gas account and associated
+            data.
+          </p>
+        </div>
+
+        <div class="content">
+          <div class="method">
+            <div class="method-number">1</div>
+            <h3>Delete Through Mobile Application</h3>
+            <p class="method-description">
+              The most convenient method is to use the account deletion feature
+              built into the Dillon Gas mobile application.
+            </p>
+
+            <div class="steps-list">
+              <ol>
+                <li>Open the Dillon Gas mobile application</li>
+                <li>Ensure you are signed in to your account</li>
+                <li>
+                  Navigate to the <strong>Profile</strong> tab in the bottom
+                  navigation
+                </li>
+                <li>
+                  Scroll to the bottom and locate the
+                  <strong>Danger Zone</strong> section
+                </li>
+                <li>Select <strong>Delete Account</strong></li>
+                <li>Enter your account password for verification</li>
+                <li>
+                  Type <strong>"DELETE"</strong> in the confirmation field
+                </li>
+                <li>Confirm the permanent deletion of your account</li>
+              </ol>
+            </div>
+
+            <a
+              href="dillongas://user-profile/delete-account"
+              class="app-button"
+            >
+              <svg
+                class="icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                ></path>
+              </svg>
+              Open Mobile App
+            </a>
+          </div>
+
+          <div class="method">
+            <div class="method-number">2</div>
+            <h3>Request Deletion via Email</h3>
+            <p class="method-description">
+              If you cannot access the mobile application, submit a deletion
+              request through our support email.
+            </p>
+
+            <div class="email-info">
+              <p>
+                <strong>Email Address:</strong>
+                <a href="mailto:support@dillongas.com" class="contact-email"
+                  >support@dillongas.com</a
+                >
+              </p>
+              <p><strong>Subject Line:</strong> Account Deletion Request</p>
+              <p><strong>Required Information:</strong></p>
+              <ul style="margin: 0.5rem 0 0 1.5rem; color: #6b7280">
+                <li>Your registered email address</li>
+                <li>Full name associated with the account</li>
+                <li>
+                  Confirmation that you understand this action is irreversible
+                </li>
+                <li>Reason for deletion (optional)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="warning-section">
+            <h4>
+              <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Important Considerations
+            </h4>
+            <ul class="warning-list">
+              <li>
+                Account deletion is <strong>permanent and irreversible</strong>
+              </li>
+              <li>
+                All order history, preferences, and account data will be
+                permanently removed
+              </li>
+              <li>
+                If you have active orders, your account will be deactivated
+                immediately and permanently deleted after order completion
+              </li>
+              <li>
+                Administrative accounts cannot be deleted through this process
+              </li>
+              <li>Any unused credits or balances will be forfeited</li>
+            </ul>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="contact-section">
+            <h4>Need Assistance?</h4>
+            <p>
+              If you encounter any difficulties during the deletion process or
+              have questions about data handling, our support team is available
+              to help.
+            </p>
+            <p>
+              <strong>Support Email:</strong>
+              <a href="mailto:support@dillongas.com" class="contact-email"
+                >support@dillongas.com</a
+              >
+            </p>
+            <p>
+              <strong>Response Time:</strong> We typically respond within 24-48
+              hours and process deletion requests within 30 days as required by
+              applicable regulations.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          &copy; 2025 Dillon Gas. All rights reserved. |
+          <a href="https://dillongas.com/privacy/">Privacy Policy</a> |
+          <a href="https://dillongas.com/wpautoterms/terms-and-conditions/"
+            >Terms of Service</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Enhanced deep link handling with better fallback
+      document
+        .querySelector(".app-button")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const deepLink = "dillongas://user-profile/delete-account";
+          const fallbackURL = "https://dillongas.com";
+
+          // Attempt to open the app
+          const startTime = Date.now();
+
+          // Create a hidden iframe to trigger the deep link
+          const iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          iframe.src = deepLink;
+          document.body.appendChild(iframe);
+
+          // Check if app opened successfully
+          setTimeout(() => {
+            document.body.removeChild(iframe);
+            const timeElapsed = Date.now() - startTime;
+
+            // If less than 2 seconds elapsed, likely the app didn't open
+            if (timeElapsed < 2000) {
+              if (
+                confirm(
+                  "The mobile app doesn't appear to be installed. Would you like to visit our website to download it?"
+                )
+              ) {
+                window.open(fallbackURL, "_blank");
+              }
+            }
+          }, 1500);
+        });
+
+      // Email link tracking (optional analytics)
+      document.querySelectorAll(".contact-email").forEach((link) => {
+        link.addEventListener("click", function () {
+          // Optional: Track email clicks for analytics
+          console.log("Support email clicked");
+        });
+      });
+    </script>
+  </body>
+</html>
